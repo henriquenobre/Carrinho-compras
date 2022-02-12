@@ -68,6 +68,8 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       toast.error('Erro na adição do produto');
     }
   };
+  console.log();
+  
 
   const removeProduct = (productId: number) => {
     try {
@@ -82,9 +84,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     amount,
   }: UpdateProductAmount) => {
     try {
-      // TODO
+      console.log(product.amount);
+      
     } catch {
-      // TODO
+      toast.error('Quantidade solicitada fora de estoque');
     }
   };
 

@@ -32,9 +32,7 @@ const Home = (): JSX.Element => {
     }
     
   }, {} as CartItemsAmount)
-  
-  console.log(cartItemsAmount)
-  
+    
 
   useEffect(() => {
     async function loadProducts() {
