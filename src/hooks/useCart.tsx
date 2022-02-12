@@ -47,18 +47,23 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       if (amount > stockAmount) {
         toast.error('Quantidade solicitada fora de estoque');
         return
-      } else {
+      } 
+      
+      if(productExist){
+        productExist.amount = amount
+      }else {
         const product = await api.get(`/products/${productId}`)
 
         const newProduct = {
           ...product.data,
-          amount: amount
+          amount: 1 
         }
 
-        updateCart.push(newProduct)
+        updateCart.push(newProduct) 
       }
       setCart(updateCart)
       localStorage.setItem('@RocketShoes:cart', JSON.stringify(updateCart))
+      toast.success('Produto adicionado ao Carrinho');
     } catch {
       toast.error('Erro na adição do produto');
     }
