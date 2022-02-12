@@ -23,51 +23,54 @@ interface CartItemsAmount {
 
 const Home = (): JSX.Element => {
   const [products, setProducts] = useState<ProductFormatted[]>([]);
-  //const { addProduct, cart } = useCart();
+  const { addProduct, cart } = useCart();
 
-  //const cartItemsAmount = cart.reduce((sumAmount, product) => {
-   // sumAmount = product.id
-  // }, {} as CartItemsAmount)
+  const cartItemsAmount = cart.reduce((sumAmount, product) => {
+    const newSumAmount = { ...sumAmount }
+    newSumAmount[product.id] = product.amount
+
+    return newSumAmount
+  }, {} as CartItemsAmount)
 
   useEffect(() => {
     async function loadProducts() {
-      api
-      .get("products")
-      .then((response) => setProducts(response.data));
+      await api
+        .get("products")
+        .then((response) => setProducts(response.data));
     }
-    
+
     loadProducts();
   }, []);
 
   function handleAddProduct(id: number) {
-    // TODO
+    addProduct(id)
   }
 
   return (
-    
+
     <ProductList>
       {products.map(product => {
-        return(
+        return (
           <li key={product.id}>
-        <img src={product.image} alt={product.title} />
-        <strong>{product.title}</strong>
-        <span>{formatPrice(product.price)}</span>
-        <button
-          type="button"
-          data-testid="add-product-button"
-          onClick={() => handleAddProduct(product.id)}
-        >
-          <div data-testid="cart-product-quantity">
-            <MdAddShoppingCart size={16} color="#FFF" />
-            {/* {cartItemsAmount[product.id] || 0} */} 2
-          </div>
+            <img src={product.image} alt={product.title} />
+            <strong>{product.title}</strong>
+            <span>{formatPrice(product.price)}</span>
+            <button
+              type="button"
+              data-testid="add-product-button"
+              onClick={() => handleAddProduct(product.id)}
+            >
+              <div data-testid="cart-product-quantity">
+                <MdAddShoppingCart size={16} color="#FFF" />
+                {cartItemsAmount[product.id] || 0}
+              </div>
 
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
+              <span>ADICIONAR AO CARRINHO</span>
+            </button>
+          </li>
         )
       })}
-      
+
     </ProductList>
   );
 };
