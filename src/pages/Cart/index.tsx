@@ -26,10 +26,12 @@ const Cart = (): JSX.Element => {
         return sumTotal += (product.price * product.amount)
       }, 0)
     )
-      console.log(total);
       
   function handleProductIncrement(product: Product) {
-    updateProductAmount()
+    updateProductAmount({
+      productId: product.id, 
+      amount: product.amount
+    })
   }
 
   function handleProductDecrement(product: Product) {
@@ -82,7 +84,7 @@ const Cart = (): JSX.Element => {
                 <button
                   type="button"
                   data-testid="increment-product"
-                  onClick={updateProductAmount(product.id, product.amount)}
+                  onClick={() => handleProductIncrement(product)}
                 >
                   <MdAddCircleOutline size={20} />
                 </button>

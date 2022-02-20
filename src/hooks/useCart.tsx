@@ -84,8 +84,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     amount,
   }: UpdateProductAmount) => {
     try {
-      console.log(product.amount);
-      
+        console.log(productId, amount);      
     } catch {
       toast.error('Quantidade solicitada fora de estoque');
     }
