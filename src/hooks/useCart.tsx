@@ -75,7 +75,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const removeProduct = (productId: number) => {
     try {
       const updateProduct = [...cart]
-      const productIndex = updateProduct.findIndex(product => product.id = productId)
+      const productIndex = updateProduct.findIndex(product => product.id === productId)
 
       if (productIndex >= 0) {
         updateProduct.splice(productIndex, 1)
